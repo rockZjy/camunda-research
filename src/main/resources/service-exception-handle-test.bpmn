@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_000kz6n" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="service-exception-handle-test" name="service-exception-handle-test" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1iiufdk</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0kpcyw4">
+      <bpmn:incoming>Flow_0hk59ak</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="output-service" name="output" camunda:type="external" camunda:topic="output-topic">
+      <bpmn:incoming>Flow_148hlos</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hk59ak</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1iiufdk" sourceRef="StartEvent_1" targetRef="caculate-service" />
+    <bpmn:sequenceFlow id="Flow_0hk59ak" sourceRef="output-service" targetRef="Event_0kpcyw4" />
+    <bpmn:serviceTask id="caculate-service" name="caculate a+b" camunda:type="external" camunda:topic="caculate-topic">
+      <bpmn:incoming>Flow_1iiufdk</bpmn:incoming>
+      <bpmn:incoming>Flow_1hv6r50</bpmn:incoming>
+      <bpmn:outgoing>Flow_148hlos</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="Event_1fxc53d" attachedToRef="caculate-service">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_0chk45h</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1b5yrm7" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_0chk45h" sourceRef="Event_1fxc53d" targetRef="Activity_1iwyq5w" />
+    <bpmn:userTask id="Activity_1iwyq5w" name="exception handle" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:formData />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0chk45h</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hv6r50</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1hv6r50" sourceRef="Activity_1iwyq5w" targetRef="caculate-service" />
+    <bpmn:sequenceFlow id="Flow_148hlos" sourceRef="caculate-service" targetRef="output-service" />
+  </bpmn:process>
+  <bpmn:message id="Message_3sesd9m" name="Message_3sesd9m" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="service-exception-handle-test">
+      <bpmndi:BPMNEdge id="Flow_1hv6r50_di" bpmnElement="Flow_1hv6r50">
+        <di:waypoint x="280" y="400" />
+        <di:waypoint x="280" y="355" />
+        <di:waypoint x="370" y="355" />
+        <di:waypoint x="370" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0chk45h_di" bpmnElement="Flow_0chk45h">
+        <di:waypoint x="410" y="218" />
+        <di:waypoint x="410" y="440" />
+        <di:waypoint x="330" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1iiufdk_di" bpmnElement="Flow_1iiufdk">
+        <di:waypoint x="215" y="160" />
+        <di:waypoint x="360" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hk59ak_di" bpmnElement="Flow_0hk59ak">
+        <di:waypoint x="730" y="160" />
+        <di:waypoint x="872" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_148hlos_di" bpmnElement="Flow_148hlos">
+        <di:waypoint x="460" y="160" />
+        <di:waypoint x="630" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_02fxog1_di" bpmnElement="Activity_1iwyq5w">
+        <dc:Bounds x="230" y="400" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gxxwya_di" bpmnElement="caculate-service">
+        <dc:Bounds x="360" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1m65jxd_di" bpmnElement="output-service">
+        <dc:Bounds x="630" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0kpcyw4_di" bpmnElement="Event_0kpcyw4">
+        <dc:Bounds x="872" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1jh09e8_di" bpmnElement="Event_1fxc53d">
+        <dc:Bounds x="392" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
