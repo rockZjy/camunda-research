@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class ServiceTestException {
     /**
-     * Related BPMN Name: service-test.bpmn
+     * Related BPMN Name: service-test-exception.bpmn
      */
 
     private final static Logger LOGGER = Logger.getLogger(ServiceTestException.class.getName());
@@ -28,11 +28,11 @@ public class ServiceTestException {
                     LOGGER.info("ExecutionId: "+ externalTask.getExecutionId());
                     LOGGER.info("ProcessInstanceId: "+ externalTask.getProcessInstanceId());
                     LOGGER.info("complete start-service ");
-//                    try {
+                    try {
                         int a = 1/0;
-//                    } catch (Exception e) {
-//                        throw new RuntimeException("Exception");
-//                    }
+                    } catch (Exception e) {
+                        throw new RuntimeException("Exception");
+                    }
                     // 完成任务
 //                    params.put("service_rtn", 1);
                     externalTaskService.complete(externalTask, params);
