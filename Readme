@@ -1,0 +1,10 @@
+[Get] http://localhost:8080/engine-rest/event-subscription
+[Post]http://localhost:8080/engine-rest/execution/db038bf6-cafe-11ed-8c2c-00090faa0001/messageSubscriptions/Message_3l2tilr/trigger
+{
+  "variables":{
+    "test_input":{
+      "value":"wwwsd",
+      "type":"String"
+      }
+    }
+}
